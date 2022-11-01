@@ -46,33 +46,31 @@ const listOfSongs = [
         "url":"https://pwdown.com/14642/Hawa%20Banke%20-%20Darshan%20Raval.mp3"
     }
 ];
-// In  playing song bar, heading and paragraph changes when song changes by the user.
-function songInfo(name_of_the_song , artist_of_the_song){
-    let heading = document.createElement("h4");
-    heading.innerText = name_of_the_song;
-    heading.style.color = "white";
-    
-
-    let paragraph = document.createElement("p");
-    paragraph.style.color = "rgb(157, 162, 167)";
-    paragraph.style.fontSize = "12px";
-    paragraph.innerText = artist_of_the_song;
-
-    let playing_song_container = document.getElementsByClassName("titleSongs");
-    playing_song_container[0].append(heading);
-    playing_song_container[0].append(paragraph);
-};
-
-for (let i = 0; i<listOfSongs.length; i++){
-    let details = listOfSongs[i];
-    let playing_song_details = document.getElementsByClassName("leftpart");
-    playing_song_details[0].append(songInfo(details["songName"] , details["Artist"]));
-    
-}
 
 
 
+var currentlyPlayedSongImage = document.querySelector(".currently-played-song-image");
+var currentlyPlayedSongTitle = document.querySelector(".currently-played-song-title");
+var currentlyPlayedSongArtist = document.querySelector(".currently-played-song-artist");
+var playPauseBtn = document.querySelector(".play-pause-img");
+let audio_player= document.createElement("audio");
 let isplaying = false;
+
+playPauseBtn.addEventListener("click", () => { 
+    if (isplaying) {
+        isplaying = false;
+        audio_player.pause();
+        playPauseBtn.src = "./img/play.svg";
+        return;
+    } 
+
+
+    isplaying = true;
+    audio_player.play();
+    playPauseBtn.src = "./img/pause.svg";
+    
+});
+
 function recentlySongs(sngImage , sngName , singer,url ){
 
     let song_holder = document.createElement("div");
@@ -80,8 +78,8 @@ function recentlySongs(sngImage , sngName , singer,url ){
 
     let image = document.createElement("img");
     image.src = sngImage;
-    image.style.width = "170px";
-    image.style.height = "170px";
+    image.style.width = "120px";
+    image.style.height = "120px";
 
 
     let songs = document.createElement("h3");
@@ -104,6 +102,9 @@ function recentlySongs(sngImage , sngName , singer,url ){
     song_holder.append(image);
     song_holder.append(songs);
     song_holder.append(artist);
+    
+    song_holder.style.cursor = "pointer";
+    
     // song_holder.append(audio);
 
     return song_holder;
@@ -112,7 +113,7 @@ function recentlySongs(sngImage , sngName , singer,url ){
 let song_container = document.getElementsByClassName("recently-played-songs");
 song_container[0].style.display = "flex";
 
-let audio_player= document.createElement("audio");
+
 
 for (let songs in listOfSongs){
     let song_image = listOfSongs[songs]["songImage"];
@@ -121,6 +122,13 @@ for (let songs in listOfSongs){
     let song_placer = recentlySongs(song_image,song_name,singer_name);
     song_placer.addEventListener("click",()=>{
         audio_player.src = listOfSongs[songs]['url'];
+        audio_player.play();
+        isplaying = true;
+
+        currentlyPlayedSongImage.src = song_image;
+        currentlyPlayedSongTitle.innerText = song_name;
+        currentlyPlayedSongArtist.innerText = singer_name;
+        playPauseBtn.src = "./img/pause.svg";    
        
     });
     song_container[0].append(song_placer);
@@ -137,8 +145,8 @@ for (let songs in listOfSongs){
    
 // }
 
-let playButton = document.getElementsByClassName("play-btn");
-let pauseButton = document.getElementsByClassName("pause-btn")
+// let playButton = document.getElementsByClassName("play-btn");
+// let pauseButton = document.getElementsByClassName("pause-btn")
 
 function playTheSong(){
     audio_player.play();
