@@ -1,4 +1,4 @@
-const playlist = [
+export const playlist = [
     {
         "songImage":"https://img.wynk.in/unsafe/250x250/filters:no_upscale():strip_exif():format(webp)/http://s3-ap-south-1.amazonaws.com/wynk-music-cms/srch_hungama/music/8903431811349/1617862818/srch_hungama_64431575.jpg",
         "songName":"Is Qadar",
@@ -67,3 +67,10 @@ const playlist = [
         "songTimming":"02:55"
     }    
 ];
+
+
+
+// function playSong(song) {
+//     if (song.url) {
+//     }
+// }    

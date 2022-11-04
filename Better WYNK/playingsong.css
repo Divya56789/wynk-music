@@ -242,19 +242,15 @@
 }
 .recently-played-songs{
     width:84%;
+    /* height:500px; */
     margin-left:8%;
     margin-right:8%;
    /* border:2px solid cyan; */
    overflow-x:scroll;
+   overflow-y: hidden;
 }
-/* .container{
-    
-    margin-left:8%; 
-    margin-right:8%;
-    border:2px solid red;
-    width:84%;
-}
-.container::-webkit-scrollbar{
+
+/* .recently-played-songs::-webkit-scrollbar{
     display: none;
 } */
 
@@ -265,16 +261,23 @@
     margin:1em; 
 }
 .song-name , .artist-name{
+    margin-top: 0.5em;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.song-image:hover{
+
+.song-detail-holder:hover .song-image{
     opacity: 0.5;
 }
-/* .song-detail-holder:hover .playing-btn{ 
+.image-holder{
+    width:120px;
+    height:120px;
+    
+}
+.song-detail-holder:hover .playing-btn{ 
     display: flex;
 }
 .song-detail-holder:hover .forward-arrow{ 
@@ -282,39 +285,48 @@
 }
 .song-detail-holder:hover .three-dot-btn{ 
     display: flex;
-} */
+}
 .playing-btn{
     position:relative;
-    top:-105px;
-    left:45px;
-    /* display: none;  */   
+    bottom:70px;
+    left:40%;
+    display: none;    
+}
+.three-dot-btn:hover{
+    background-color: grey;
+    border-radius: 50px;
+}
+.forward-arrow:hover{
+    background-color: grey;
+    border-radius: 50px;
 }
 .forward-arrow{
     position:relative;
-    top:-60px;
-    left:0;
-    /* display: none; */
+    bottom:50px;
+    left:10%;
+    display: none;
 }
 .three-dot-btn{
     position:relative;
-    top:-60px;
-    left:30%;
-    /* display: none; */
-    
+    bottom: 70px;
+    left:75%;
+    display: none;
 }
+
 /* .three-dot-btn:hover .three-dot-content{
     display:block;
 } */
 .three-dot-content{
-    position: relative;
-    top:0px;
-    left:0px;
+    position: absolute;
+    top:300px;
+    left:45px;
     background-color: rgb(33,37,45);
-    border-radius: 5px;
+    border-radius: 7px;
     min-width: 180px;
     text-align: center;
     padding:0.5em;
-    /* display:none; */
+    display:none;
+    z-index: 1;
 }
 
 .three-dot-content-inner:hover{

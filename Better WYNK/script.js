@@ -84,9 +84,6 @@ let isplaying = false;
 
 
 playPauseBtn.addEventListener("click", () => {
-
-   
-
     if (isplaying) {
         isplaying = false;
         audio_player.pause();
@@ -100,11 +97,6 @@ playPauseBtn.addEventListener("click", () => {
    
 });
 
-// const threeDotInnerText = ["Free Download","Set Free Hellotune","Share","Play Next","Add To Playlist","Report Abuse"];
-// for (let i in threeDotInnerText){
-//     console.log(threeDotInnerText[i]);
-// }
-
 
 
 function recentlySongs(sngImage , sngName , singer,url ){
@@ -112,14 +104,18 @@ function recentlySongs(sngImage , sngName , singer,url ){
     let song_holder = document.createElement("div");
     song_holder.className = "song-detail-holder";
     
-    // let image_holder = document.createElement("div");
-    // image_holder.className = "all-image-holder";
+    let image_holder = document.createElement("div");
+    image_holder.className = "image-holder";
 
     let image = document.createElement("img");
     image.src = sngImage;
     image.style.width = "120px";
     image.style.height = "120px";
     image.className = "song-image";
+
+    let image_content_holder = document.createElement("div");
+    image_content_holder.className = "image-content-holder";
+
 
     let playbtn = document.createElement("img");
     playbtn.src = "img/play-circle-fill.svg";
@@ -136,6 +132,32 @@ function recentlySongs(sngImage , sngName , singer,url ){
     let threeDotContent = document.createElement("div");
     threeDotContent.className ="three-dot-content";
 
+    image_holder.append(image);
+    image_holder.append(image_content_holder);
+    image_content_holder.appendChild(playbtn);
+    image_content_holder.appendChild(forwardArrow);
+    image_content_holder.appendChild(threeDot);
+
+    threeDot.addEventListener("click" , ()=>{
+        threeDotContent.style.display = "block";
+    });
+
+    let songs = document.createElement("h3");
+    songs.innerText = sngName;
+    songs.style.fontSize = "15px";
+    songs.style.color = "white";
+    songs.className = "song-name";
+
+    let artist = document.createElement("p");
+    artist.innerText = singer;
+    artist.style.color = "white";
+    artist.style.fontSize = "10px";
+    artist.className = "artist-name";
+   
+    song_holder.append(image_holder);
+    song_holder.append(songs);
+    song_holder.append(artist);
+   
     let threeDotInnerContent1 = document.createElement("p");
     threeDotInnerContent1.innerText = "Free Download";
     threeDotInnerContent1.style.color = "#fff";
@@ -174,42 +196,17 @@ function recentlySongs(sngImage , sngName , singer,url ){
     threeDotContent.append(threeDotInnerContent5);
     threeDotContent.append(threeDotInnerContent6);
 
-    let songs = document.createElement("h3");
-    songs.innerText = sngName;
-    songs.style.fontSize = "15px";
-    songs.style.color = "white";
-    songs.className = "song-name";
-
-    let artist = document.createElement("p");
-    artist.innerText = singer;
-    artist.style.color = "white";
-    artist.style.fontSize = "10px";
-    artist.className = "artist-name";
-   
-    song_holder.append(image);
-    song_holder.append(songs);
-    song_holder.append(artist);
-    song_holder.append(playbtn);
-    song_holder.append(forwardArrow);
-    song_holder.append(threeDot);
-    song_holder.append(threeDotContent);
-   
+    image_content_holder.append(threeDotContent);
 
    song_holder.style.cursor = "pointer";
 
-    // playbtn.addEventListener("click",()=>{
-    // audio_player.src = listOfSongs[songs]['url'];
+   //playlist 
+   let currentPlayingIndex = 0;
 
-    // audio_player.play();
-    // isplaying = true;
-
-    
-    // currentPlaySongName.innerText = song_name;
-    // currntPlaySongArtist.innerText = singer_name;
-    // currentPlaySongImage.src = song_image;
-
-    // playPauseBtn.src = "./img/pause.svg";
-    // });
+    threeDotInnerContent5.addEventListener("click", ()=>{
+        audio_player.src = playlist[currentPlayingIndex].url;
+        audio_player.play();
+    });
 
     return song_holder;
 };
@@ -219,7 +216,7 @@ song_container[0].style.display = "flex";
 
 
 
-for (let songs in listOfSongs){
+for (let songs in listOfSongs){                                     
     let song_image = listOfSongs[songs]["songImage"];
     let song_name = listOfSongs[songs]["songName"];
     let singer_name = listOfSongs[songs]["Artist"];
